@@ -2,6 +2,11 @@
 
 This project is a React Native application built with Expo. It helps children explore emotions by interacting with animated puff balls and creating their own "emotion soup".
 
+## Requirements
+
+- **Node.js 18+** – the app expects a recent LTS version of Node.
+- **npm** – included with Node. All commands below assume `npm`.
+
 ## Getting Started
 
 1. Install dependencies:
