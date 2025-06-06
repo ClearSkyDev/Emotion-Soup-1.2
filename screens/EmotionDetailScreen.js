@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Button, ActivityIndicator } from 'react-native';
+import EmotionPuffBall from '../components/EmotionPuffBall';
 import EmotionSliders from '../components/EmotionSliders';
 import { useApp } from '../context/AppContext';
 import EmotionStoryBox from '../components/EmotionStoryBox';
@@ -21,6 +22,11 @@ export default function EmotionDetailScreen({ route, navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{emotion.id}</Text>
+      <EmotionPuffBall
+        emotion={emotion.id}
+        color={emotion.color}
+        size={size}
+      />
       <EmotionSliders
         sizeValue={size}
         setSizeValue={setSize}
