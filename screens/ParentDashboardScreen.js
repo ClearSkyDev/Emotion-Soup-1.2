@@ -1,57 +1,66 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
-import { Text, Card, List, Divider } from 'react-native-paper';
-import { auth, db } from '../firebase';
+import { ScrollView, StyleSheet, View, Dimensions } from 'react-native';
+import { Appbar, Card, Text, List, Divider } from 'react-native-paper';
+import { db } from '../firebase';
 import {
   collection,
   getDocs,
+  orderBy,
   query,
   where,
-  orderBy,
+  limit,
 } from 'firebase/firestore';
+import { LineChart } from 'react-native-chart-kit';
 
-export default function ParentDashboardScreen() {
-  const [topEmotions, setTopEmotions] = useState([]);
-  const [trend, setTrend] = useState([]);
-  const [coping, setCoping] = useState([]);
+export default function ParentDashboardScreen({ navigation, userId }) {
+  const [recentEmotions, setRecentEmotions] = useState([]);
+  const [trendData, setTrendData] = useState({ labels: [], data: [] });
   const [alerts, setAlerts] = useState([]);
 
   useEffect(() => {
-    const uid = auth.currentUser?.uid;
+    const uid = userId;
     if (!uid) return;
 
     const fetchData = async () => {
-      // fetch emotions
-      const emoSnap = await getDocs(collection(db, 'users', uid, 'emotions'));
+      const emotionsRef = collection(db, 'users', uid, 'emotions');
+      const recentQuery = query(
+        emotionsRef,
+        orderBy('timestamp', 'desc'),
+        limit(10)
+      );
+      const recentSnap = await getDocs(recentQuery);
+      const recent = recentSnap.docs.map((d) => ({ id: d.id, ...d.data() }));
+      setRecentEmotions(recent);
+
+      const start = new Date();
+      start.setHours(0, 0, 0, 0);
+      start.setDate(start.getDate() - 6);
+      const trendQuery = query(
+        emotionsRef,
+        where('timestamp', '>=', start),
+        orderBy('timestamp', 'asc')
+      );
+      const trendSnap = await getDocs(trendQuery);
       const counts = {};
-      const daily = {};
-      emoSnap.forEach((doc) => {
-        const d = doc.data();
-        counts[d.emotion] = (counts[d.emotion] || 0) + 1;
-        const date = d.timestamp?.toDate?.().toISOString().slice(0, 10);
-        if (date) daily[date] = (daily[date] || 0) + 1;
+      trendSnap.forEach((doc) => {
+        const dateStr = doc
+          .data()
+          .timestamp.toDate()
+          .toISOString()
+          .slice(0, 10);
+        counts[dateStr] = (counts[dateStr] || 0) + 1;
       });
-      const sorted = Object.entries(counts)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 5);
-      setTopEmotions(sorted);
-
-      const last7 = Object.entries(daily)
-        .sort((a, b) => (a[0] > b[0] ? 1 : -1))
-        .slice(-7);
-      setTrend(last7);
-
-      // coping tools summary (if exists)
-      try {
-        const copeSnap = await getDocs(collection(db, 'users', uid, 'coping_tools'));
-        const list = [];
-        copeSnap.forEach((d) => list.push(d.data()));
-        setCoping(list);
-      } catch (e) {
-        setCoping([]);
+      const labels = [];
+      const data = [];
+      for (let i = 6; i >= 0; i--) {
+        const d = new Date();
+        d.setDate(d.getDate() - i);
+        const key = d.toISOString().slice(0, 10);
+        labels.push(d.toISOString().slice(5, 10));
+        data.push(counts[key] || 0);
       }
+      setTrendData({ labels, data });
 
-      // alerts
       const alertQuery = query(
         collection(db, 'users', uid, 'alerts'),
         where('flagged', '==', true),
@@ -63,45 +72,52 @@ export default function ParentDashboardScreen() {
     };
 
     fetchData();
-  }, []);
+  }, [userId]);
 
   return (
     <ScrollView style={styles.container}>
-      <Text variant="titleLarge" style={styles.welcome}>Welcome, Parent!</Text>
+      <Appbar.Header>
+        <Appbar.BackAction onPress={() => navigation.goBack()} />
+        <Appbar.Content title="Parent Dashboard" />
+      </Appbar.Header>
 
       <Card style={styles.section}>
-        <Card.Title title="Top Emotions" />
+        <Card.Title title="Recent Emotions" />
         <Card.Content>
-          {topEmotions.map(([emotion, count]) => (
-            <Text key={emotion}>{emotion}: {count}</Text>
+          {recentEmotions.map((e) => (
+            <Text key={e.id}>{`${e.emotion} - ${e.timestamp?.toDate?.().toLocaleString()}`}</Text>
           ))}
         </Card.Content>
       </Card>
 
       <Card style={styles.section}>
-        <Card.Title title="Past 7 Days" />
+        <Card.Title title="Emotion Trend (7 days)" />
         <Card.Content>
-          {trend.map(([date, count]) => (
-            <Text key={date}>{date}: {count}</Text>
-          ))}
+          {trendData.labels.length > 0 && (
+            <LineChart
+              data={{ labels: trendData.labels, datasets: [{ data: trendData.data }] }}
+              width={Dimensions.get('window').width - 64}
+              height={220}
+              chartConfig={{
+                backgroundColor: '#ffffff',
+                backgroundGradientFrom: '#ffffff',
+                backgroundGradientTo: '#ffffff',
+                decimalPlaces: 0,
+                color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+              }}
+              bezier
+              style={{ marginVertical: 8 }}
+            />
+          )}
         </Card.Content>
       </Card>
 
-      <Card style={styles.section}>
-        <Card.Title title="Coping Tools" />
-        <Card.Content>
-          {coping.length === 0 && <Text>No data</Text>}
-          {coping.map((c, idx) => (
-            <Text key={idx}>{c.tool}: {c.count}</Text>
-          ))}
-        </Card.Content>
-      </Card>
-
-      <List.Section title="Hidden Alerts">
+      <List.Section title="Alerts">
         {alerts.map((a) => (
           <View key={a.id} style={styles.alertItem}>
             <List.Item
-              title={`${a.emotions?.join(', ')}`}
+              title={a.emotions?.join(', ')}
               description={`${a.reason} - ${a.timestamp?.toDate?.().toLocaleDateString()}`}
             />
             <Divider />
@@ -113,8 +129,7 @@ export default function ParentDashboardScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16 },
-  welcome: { marginBottom: 16 },
-  section: { marginBottom: 16 },
+  container: { flex: 1 },
+  section: { margin: 16 },
   alertItem: { backgroundColor: '#fff' },
 });
