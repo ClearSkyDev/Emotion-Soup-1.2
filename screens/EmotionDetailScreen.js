@@ -5,6 +5,7 @@ import EmotionSliders from '../components/EmotionSliders';
 import { useApp } from '../context/AppContext';
 import EmotionStoryBox from '../components/EmotionStoryBox';
 import useUserTier from '../hooks/useUserTier';
+import logEmotionEntry from '../hooks/useEmotionLogger';
 
 export default function EmotionDetailScreen({ route, navigation }) {
   const { emotion } = route.params;
@@ -13,9 +14,14 @@ export default function EmotionDetailScreen({ route, navigation }) {
   const [temperature, setTemperature] = useState(0);
   const { tier, loading } = useUserTier();
 
-  const addToSoup = () => {
+  const addToSoup = async () => {
     const newEmotion = { ...emotion, size, temperature };
     setSelectedEmotions([...selectedEmotions, newEmotion]);
+    await logEmotionEntry({
+      emotion: emotion.id,
+      size,
+      temperature,
+    });
     navigation.navigate('Soup');
   };
 
