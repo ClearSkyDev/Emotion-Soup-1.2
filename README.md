@@ -44,4 +44,4 @@ The `hooks/useUserTier.js` hook reads this value so the app can show premium fea
 
 ## Emotion Journal
 
-Each time a child interacts with an emotion, a journal entry is saved to Firestore in the `journal_entries` collection. Entries include the user's id, emotion name, size, temperature and a timestamp. The helper `hooks/useEmotionLogger.js` provides a simple `logEmotionEntry` function used by the app when adding an emotion to the soup.
+Each time a child interacts with an emotion, a journal entry is saved to Firestore under `users/{uid}/emotions`. Entries include the emotion name, size, temperature and a timestamp. The helper `hooks/useEmotionLogger.js` provides a simple `logEmotionEntry` function used by the app when adding an emotion to the soup.

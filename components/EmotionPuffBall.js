@@ -1,7 +1,13 @@
 import React, { useRef, useEffect } from 'react';
 import { Text, TouchableWithoutFeedback, Animated, StyleSheet, Vibration } from 'react-native';
 
-export default function EmotionPuffBall({ emotion, color, size = 100, onPress }) {
+export default function EmotionPuffBall({
+  emotion,
+  color,
+  size = 100,
+  onPress,
+  onTripleTap,
+}) {
   const scaleAnim = useRef(new Animated.Value(1)).current;
   const pulseAnim = useRef(new Animated.Value(1)).current;
 
@@ -22,7 +28,23 @@ export default function EmotionPuffBall({ emotion, color, size = 100, onPress })
     ).start();
   }, []);
 
+  const tapCount = useRef(0);
+  const lastTap = useRef(0);
+
   const handlePress = () => {
+    const now = Date.now();
+    if (now - lastTap.current < 300) {
+      tapCount.current += 1;
+    } else {
+      tapCount.current = 1;
+    }
+    lastTap.current = now;
+
+    if (tapCount.current === 3) {
+      tapCount.current = 0;
+      if (onTripleTap) onTripleTap();
+    }
+
     Vibration.vibrate(10);
     Animated.sequence([
       Animated.timing(scaleAnim, {
