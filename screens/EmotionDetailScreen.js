@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Button, ActivityIndicator } from 'react-native';
+import * as Speech from 'expo-speech';
 import EmotionPuffBall from '../components/EmotionPuffBall';
 import EmotionSliders from '../components/EmotionSliders';
 import { useApp } from '../context/AppContext';
@@ -14,6 +15,10 @@ export default function EmotionDetailScreen({ route, navigation }) {
   const [temperature, setTemperature] = useState(0);
   const [helpRequested, setHelpRequested] = useState(false);
   const { tier, loading } = useUserTier();
+
+  const speakPrompt = () => {
+    Speech.speak(`You chose ${emotion.id}. What does it feel like in your body?`);
+  };
 
   const addToSoup = async () => {
     const newEmotion = { ...emotion, size, temperature };
@@ -30,6 +35,7 @@ export default function EmotionDetailScreen({ route, navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{emotion.id}</Text>
+      <Button title="Listen" onPress={speakPrompt} />
       <EmotionPuffBall
         emotion={emotion.id}
         color={emotion.color}
