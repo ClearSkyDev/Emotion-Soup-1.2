@@ -45,3 +45,7 @@ The `hooks/useUserTier.js` hook reads this value so the app can show premium fea
 ## Emotion Journal
 
 Each time a child interacts with an emotion, a journal entry is saved to Firestore under `users/{uid}/emotions`. Entries include the emotion name, size, temperature and a timestamp. The helper `hooks/useEmotionLogger.js` provides a simple `logEmotionEntry` function used by the app when adding an emotion to the soup.
+
+## Coping Tools
+
+The new `CopingToolsScreen` provides breathing, drawing and journaling tools for kids. Usage of each tool is recorded to Firestore at `users/{uid}/copingLogs`.

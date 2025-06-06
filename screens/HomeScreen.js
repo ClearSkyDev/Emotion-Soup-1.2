@@ -27,6 +27,7 @@ export default function HomeScreen({ navigation }) {
         <Text style={styles.title}>How are you feeling?</Text>
         <Button title="Settings" onPress={() => navigation.navigate('Settings')} />
       </View>
+      <Button title="Coping Tools" onPress={() => navigation.navigate('CopingTools')} />
       <Timer />
       <FlatList
         data={EMOTIONS}

@@ -6,6 +6,7 @@ import EmotionDetailScreen from './screens/EmotionDetailScreen';
 import SoupScreen from './screens/SoupScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import ParentDashboardScreen from './screens/ParentDashboardScreen';
+import CopingToolsScreen from './screens/CopingToolsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,6 +17,7 @@ export default function Navigation() {
       <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'Emotion Soup' }} />
       <Stack.Screen name="EmotionDetail" component={EmotionDetailScreen} options={{ title: 'Feeling' }} />
       <Stack.Screen name="Soup" component={SoupScreen} options={{ title: 'Your Soup' }} />
+      <Stack.Screen name="CopingTools" component={CopingToolsScreen} options={{ title: 'Coping Tools' }} />
       <Stack.Screen name="Settings" component={SettingsScreen} options={{ title: 'Settings' }} />
       <Stack.Screen name="ParentDashboard" component={ParentDashboardScreen} options={{ title: 'Parent Dashboard' }} />
     </Stack.Navigator>
