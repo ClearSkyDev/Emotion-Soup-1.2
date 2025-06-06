@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { View, Text, StyleSheet, Button, ActivityIndicator } from 'react-native';
 import EmotionSliders from '../components/EmotionSliders';
 import { useApp } from '../context/AppContext';
+import EmotionStoryBox from '../components/EmotionStoryBox';
+import useUserTier from '../hooks/useUserTier';
 
 export default function EmotionDetailScreen({ route, navigation }) {
   const { emotion } = route.params;
   const { selectedEmotions, setSelectedEmotions } = useApp();
   const [size, setSize] = useState(50);
   const [temperature, setTemperature] = useState(0);
+  const { tier, loading } = useUserTier();
 
   const addToSoup = () => {
     const newEmotion = { ...emotion, size, temperature };
@@ -25,6 +28,15 @@ export default function EmotionDetailScreen({ route, navigation }) {
         setTempValue={setTemperature}
       />
       <Button title="Add to Soup" onPress={addToSoup} />
+      {loading ? (
+        <ActivityIndicator style={{ marginTop: 12 }} />
+      ) : tier === 'premium' ? (
+        <EmotionStoryBox emotion={emotion.id} size={size} temp={temperature} />
+      ) : (
+        <Text style={{ textAlign: 'center', marginTop: 12 }}>
+          Upgrade to Premium to see a custom story!
+        </Text>
+      )}
     </View>
   );
 }
