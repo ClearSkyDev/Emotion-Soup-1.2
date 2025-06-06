@@ -12,6 +12,7 @@ export default function EmotionDetailScreen({ route, navigation }) {
   const { selectedEmotions, setSelectedEmotions } = useApp();
   const [size, setSize] = useState(50);
   const [temperature, setTemperature] = useState(0);
+  const [helpRequested, setHelpRequested] = useState(false);
   const { tier, loading } = useUserTier();
 
   const addToSoup = async () => {
@@ -21,6 +22,7 @@ export default function EmotionDetailScreen({ route, navigation }) {
       emotion: emotion.id,
       size,
       temperature,
+      helpRequested,
     });
     navigation.navigate('Soup');
   };
@@ -32,6 +34,7 @@ export default function EmotionDetailScreen({ route, navigation }) {
         emotion={emotion.id}
         color={emotion.color}
         size={size}
+        onTripleTap={() => setHelpRequested(true)}
       />
       <EmotionSliders
         sizeValue={size}
