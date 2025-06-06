@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, Button } from 'react-native';
 import PuffBall from '../components/PuffBall';
 import { useApp } from '../context/AppContext';
 
@@ -22,7 +22,10 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>How are you feeling?</Text>
+      <View style={styles.header}>
+        <Text style={styles.title}>How are you feeling?</Text>
+        <Button title="Settings" onPress={() => navigation.navigate('Settings')} />
+      </View>
       <FlatList
         data={EMOTIONS}
         numColumns={3}
@@ -40,6 +43,7 @@ export default function HomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, alignItems: 'center', paddingTop: 40 },
-  title: { fontSize: 20, marginBottom: 20 },
+  header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '90%', marginBottom: 20 },
+  title: { fontSize: 20 },
   item: { alignItems: 'center', margin: 10 },
 });
