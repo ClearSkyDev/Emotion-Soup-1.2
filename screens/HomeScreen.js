@@ -4,6 +4,13 @@ import EmotionPuffBall from '../components/EmotionPuffBall';
 import Timer from '../components/Timer';
 import { useApp } from '../context/AppContext';
 import useUserTier from '../hooks/useUserTier';
+import ModeSwitcher from '../lib/ui/ModeSwitcher';
+import { useMode } from '../lib/mode_controller';
+import SoupMode from '../lib/modes/soup_mode';
+import IceCreamMode from '../lib/modes/ice_cream_mode';
+import PotionMode from '../lib/modes/potion_mode';
+import MaskMode from '../lib/modes/mask_mode';
+import GardenMode from '../lib/modes/garden_mode';
 
 const EMOTIONS = [
   { id: 'anger', color: '#f87171' },
@@ -17,6 +24,7 @@ const EMOTIONS = [
 export default function HomeScreen({ navigation }) {
   const { setSelectedEmotions } = useApp();
   const { tier, loading } = useUserTier();
+  const { currentMode } = useMode();
 
   const selectEmotion = (emotion) => {
     if ((emotion.id === 'love' || emotion.id === 'fear') && tier !== 'premium') {
@@ -42,6 +50,7 @@ export default function HomeScreen({ navigation }) {
         <Button title="Settings" onPress={() => navigation.navigate('Settings')} />
       </View>
       <Timer />
+      <ModeSwitcher />
       <Button title="Coping Tools" onPress={() => navigation.navigate('CopingTools')} />
       <FlatList
         data={EMOTIONS}
@@ -65,6 +74,12 @@ export default function HomeScreen({ navigation }) {
           onPress={() => navigation.navigate('Subscribe')}
         />
       )}
+
+      {currentMode === 'soup' && <SoupMode />}
+      {currentMode === 'iceCream' && <IceCreamMode />}
+      {currentMode === 'potion' && <PotionMode />}
+      {currentMode === 'mask' && <MaskMode />}
+      {currentMode === 'garden' && <GardenMode />}
     </View>
   );
 }
