@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, Button } from 'react-native';
 import PuffBall from '../components/PuffBall';
+import Timer from '../components/Timer';
 import { useApp } from '../context/AppContext';
 
 const EMOTIONS = [
@@ -26,6 +27,7 @@ export default function HomeScreen({ navigation }) {
         <Text style={styles.title}>How are you feeling?</Text>
         <Button title="Settings" onPress={() => navigation.navigate('Settings')} />
       </View>
+      <Timer />
       <FlatList
         data={EMOTIONS}
         numColumns={3}
