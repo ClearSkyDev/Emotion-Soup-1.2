@@ -58,6 +58,10 @@ export default function HomeScreen({ navigation }) {
           </View>
         )}
       />
+      <Button
+        title="Coping Tools"
+        onPress={() => navigation.navigate('CopingTools')}
+      />
       {tier !== 'premium' && (
         <Button
           title="Upgrade to Premium"
