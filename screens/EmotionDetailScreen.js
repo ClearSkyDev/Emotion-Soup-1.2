@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
-import Slider from '@react-native-community/slider';
+import EmotionSliders from '../components/EmotionSliders';
 import { useApp } from '../context/AppContext';
 
 export default function EmotionDetailScreen({ route, navigation }) {
   const { emotion } = route.params;
   const { selectedEmotions, setSelectedEmotions } = useApp();
-  const [size, setSize] = useState(5);
-  const [temperature, setTemperature] = useState(5);
+  const [size, setSize] = useState(50);
+  const [temperature, setTemperature] = useState(0);
 
   const addToSoup = () => {
     const newEmotion = { ...emotion, size, temperature };
@@ -18,10 +18,12 @@ export default function EmotionDetailScreen({ route, navigation }) {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{emotion.id}</Text>
-      <Text>Size</Text>
-      <Slider style={{ width: 200 }} minimumValue={1} maximumValue={10} value={size} onValueChange={setSize} />
-      <Text>Temperature</Text>
-      <Slider style={{ width: 200 }} minimumValue={1} maximumValue={10} value={temperature} onValueChange={setTemperature} />
+      <EmotionSliders
+        sizeValue={size}
+        setSizeValue={setSize}
+        tempValue={temperature}
+        setTempValue={setTemperature}
+      />
       <Button title="Add to Soup" onPress={addToSoup} />
     </View>
   );
