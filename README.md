@@ -45,3 +45,16 @@ The `hooks/useUserTier.js` hook reads this value so the app can show premium fea
 ## Emotion Journal
 
 Each time a child interacts with an emotion, a journal entry is saved to Firestore under `users/{uid}/emotions`. Entries include the emotion name, size, temperature and a timestamp. The helper `hooks/useEmotionLogger.js` provides a simple `logEmotionEntry` function used by the app when adding an emotion to the soup.
+
+### Fetching Emotion Stats
+
+To display trends over the last seven days you can use the helper `getEmotionStats(userId)` from `utils/getEmotionStats.js`. It queries `/users/{userId}/emotions` for the past week and groups entries by day and emotion.
+
+```js
+import { getEmotionStats } from './utils/getEmotionStats';
+
+const data = await getEmotionStats(userId);
+// [ { date: '2024-05-20', emotionCounts: { happy: 3, sad: 1 } }, ... ]
+```
+
+The returned array can be easily adapted for a line chart with the date on the x‑axis and counts per emotion on the y‑axis.
