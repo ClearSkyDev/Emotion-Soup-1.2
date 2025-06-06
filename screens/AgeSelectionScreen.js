@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import { useApp } from '../context/AppContext';
 
-export default function SplashScreen({ navigation }) {
+export default function AgeSelectionScreen({ navigation }) {
   const { setAge } = useApp();
 
   return (
