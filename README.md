@@ -23,3 +23,16 @@ This project is a React Native application built with Expo. It helps children ex
 - `firebase.js` Firebase initialization (configure with your own keys)
 
 This skeleton includes basic navigation and placeholder screens for future development.
+
+## User Tiers
+
+Authentication is handled with Firebase Auth. Each user also has a document in the `users` collection of Firestore:
+
+```json
+{
+  "email": "user@example.com",
+  "tier": "free" // or "premium"
+}
+```
+
+The `hooks/useUserTier.js` hook reads this value so the app can show premium features, such as emotion stories. Until in-app payments are integrated you can manually set `tier: "premium"` on your user document in Firestore for testing.
