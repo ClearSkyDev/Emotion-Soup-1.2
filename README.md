@@ -58,3 +58,7 @@ const data = await getEmotionStats(userId);
 ```
 
 The returned array can be easily adapted for a line chart with the date on the x‑axis and counts per emotion on the y‑axis.
+
+## Coping Tools
+
+The `CopingToolsScreen` offers simple breathing, drawing and journaling activities. Each time a child uses one of these tools a log entry is saved to Firestore under `users/{uid}/copingLogs`.
