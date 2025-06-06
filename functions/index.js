@@ -38,7 +38,7 @@ exports.detectDistress = functions.firestore
         flagged: true,
         timestamp: admin.firestore.FieldValue.serverTimestamp(),
         emotions: recentSnap.docs.map((d) => d.data().emotion),
-        reason: 'Detected possible distress pattern',
+        reason: 'Distress pattern detected',
       });
     }
   });
