@@ -1,6 +1,15 @@
 import React, { useRef, useEffect } from 'react';
 import { Text, TouchableWithoutFeedback, Animated, StyleSheet, Vibration } from 'react-native';
 
+const emojiMap = {
+  anger: '😡',
+  sadness: '😢',
+  happiness: '😊',
+  joy: '😊',
+  fear: '😱',
+  love: '😍',
+};
+
 export default function EmotionPuffBall({ emotion, color, size = 100, onPress }) {
   const scaleAnim = useRef(new Animated.Value(1)).current;
   const pulseAnim = useRef(new Animated.Value(1)).current;
@@ -55,7 +64,7 @@ export default function EmotionPuffBall({ emotion, color, size = 100, onPress })
           },
         ]}
       >
-        <Text style={styles.face}>😊</Text>
+        <Text style={styles.face}>{emojiMap[emotion] || '😊'}</Text>
       </Animated.View>
     </TouchableWithoutFeedback>
   );
