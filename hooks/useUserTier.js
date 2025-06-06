@@ -14,7 +14,8 @@ export default function useUserTier() {
       const docRef = doc(db, 'users', uid);
       const docSnap = await getDoc(docRef);
       if (docSnap.exists()) {
-        setTier(docSnap.data().tier || 'free');
+        const data = docSnap.data();
+        setTier(data.subscriptionTier || data.tier || 'free');
       }
       setLoading(false);
     };

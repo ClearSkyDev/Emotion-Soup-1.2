@@ -1,8 +1,9 @@
 import React from 'react';
-import { View, Text, FlatList, StyleSheet, Button } from 'react-native';
+import { View, Text, FlatList, StyleSheet, Button, ActivityIndicator } from 'react-native';
 import EmotionPuffBall from '../components/EmotionPuffBall';
 import Timer from '../components/Timer';
 import { useApp } from '../context/AppContext';
+import useUserTier from '../hooks/useUserTier';
 
 const EMOTIONS = [
   { id: 'anger', color: '#f87171' },
@@ -15,11 +16,24 @@ const EMOTIONS = [
 
 export default function HomeScreen({ navigation }) {
   const { setSelectedEmotions } = useApp();
+  const { tier, loading } = useUserTier();
 
   const selectEmotion = (emotion) => {
+    if ((emotion.id === 'love' || emotion.id === 'fear') && tier !== 'premium') {
+      navigation.navigate('Subscribe');
+      return;
+    }
     setSelectedEmotions([emotion]);
     navigation.navigate('EmotionDetail', { emotion });
   };
+
+  if (loading) {
+    return (
+      <View style={styles.container}>
+        <ActivityIndicator style={{ marginTop: 50 }} />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -44,6 +58,12 @@ export default function HomeScreen({ navigation }) {
           </View>
         )}
       />
+      {tier !== 'premium' && (
+        <Button
+          title="Upgrade to Premium"
+          onPress={() => navigation.navigate('Subscribe')}
+        />
+      )}
     </View>
   );
 }
