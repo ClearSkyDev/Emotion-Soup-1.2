@@ -36,3 +36,7 @@ Authentication is handled with Firebase Auth. Each user also has a document in t
 ```
 
 The `hooks/useUserTier.js` hook reads this value so the app can show premium features, such as emotion stories. Until in-app payments are integrated you can manually set `tier: "premium"` on your user document in Firestore for testing.
+
+## Emotion Journal
+
+Each time a child interacts with an emotion, a journal entry is saved to Firestore in the `journal_entries` collection. Entries include the user's id, emotion name, size, temperature and a timestamp. The helper `hooks/useEmotionLogger.js` provides a simple `logEmotionEntry` function used by the app when adding an emotion to the soup.
