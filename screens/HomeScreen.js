@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, Button } from 'react-native';
-import PuffBall from '../components/PuffBall';
+import { View, Text, FlatList, StyleSheet, Button } from 'react-native';
+import EmotionPuffBall from '../components/EmotionPuffBall';
 import Timer from '../components/Timer';
 import { useApp } from '../context/AppContext';
 
@@ -33,10 +33,15 @@ export default function HomeScreen({ navigation }) {
         numColumns={3}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => selectEmotion(item)} style={styles.item}>
-            <PuffBall color={item.color} />
+          <View style={styles.item}>
+            <EmotionPuffBall
+              emotion={item.id}
+              color={item.color}
+              size={70}
+              onPress={() => selectEmotion(item)}
+            />
             <Text>{item.id}</Text>
-          </TouchableOpacity>
+          </View>
         )}
       />
     </View>
