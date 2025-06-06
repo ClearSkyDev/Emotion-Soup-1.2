@@ -42,6 +42,7 @@ export default function HomeScreen({ navigation }) {
         <Button title="Settings" onPress={() => navigation.navigate('Settings')} />
       </View>
       <Timer />
+      <Button title="Coping Tools" onPress={() => navigation.navigate('CopingTools')} />
       <FlatList
         data={EMOTIONS}
         numColumns={3}

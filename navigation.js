@@ -7,6 +7,7 @@ import SoupScreen from './screens/SoupScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import ParentDashboardScreen from './screens/ParentDashboardScreen';
 import SubscribeScreen from './screens/SubscribeScreen';
+import CopingToolsScreen from './screens/CopingToolsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,6 +21,7 @@ export default function Navigation() {
       <Stack.Screen name="Settings" component={SettingsScreen} options={{ title: 'Settings' }} />
       <Stack.Screen name="Subscribe" component={SubscribeScreen} options={{ title: 'Subscribe' }} />
       <Stack.Screen name="ParentDashboard" component={ParentDashboardScreen} options={{ title: 'Parent Dashboard' }} />
+      <Stack.Screen name="CopingTools" component={CopingToolsScreen} options={{ title: 'Coping Tools' }} />
     </Stack.Navigator>
   );
 }
