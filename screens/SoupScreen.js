@@ -1,7 +1,5 @@
-import React from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { useApp } from '../context/AppContext';
-import PuffBall from '../components/PuffBall';
 
 export default function SoupScreen() {
   const { selectedEmotions } = useApp();
@@ -14,7 +12,6 @@ export default function SoupScreen() {
         keyExtractor={(item, index) => item.id + index}
         renderItem={({ item }) => (
           <View style={styles.item}>
-            <PuffBall color={item.color} size={item.size} />
             <Text>{item.id} - size {item.size} - temp {item.temperature}</Text>
           </View>
         )}

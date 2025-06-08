@@ -1,5 +1,4 @@
-import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { useApp } from '../context/AppContext';
 import PropTypes from 'prop-types';
 

@@ -1,10 +1,7 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SplashScreen from './screens/SplashScreen';
 import HomeScreen from './screens/HomeScreen';
 import EmotionDetailScreen from './screens/EmotionDetailScreen';
 import SoupScreen from './screens/SoupScreen';
-
-const Stack = createNativeStackNavigator();
 
 export default function Navigation() {
   return (

@@ -1,6 +1,4 @@
-import React from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
-import PuffBall from '../components/PuffBall';
+import { StyleSheet } from 'react-native';
 import { useApp } from '../context/AppContext';
 import PropTypes from 'prop-types';
 

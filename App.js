@@ -1,14 +1,19 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import Navigation from './navigation';
-import { AppProvider } from './context/AppContext';
+import { StyleSheet } from 'react-native';
 
 export default function App() {
   return (
-    <AppProvider>
-      <NavigationContainer>
-        <Navigation />
-      </NavigationContainer>
-    </AppProvider>
+    <View style={styles.container}>
+      <Text>Hello, world!</Text>
+      <StatusBar style="auto" />
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+});

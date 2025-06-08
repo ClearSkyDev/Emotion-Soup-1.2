@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
-import { StyleSheet, View, Text, Button } from 'react-native';
-import Slider from '@react-native-community/slider';
+import { useState } from 'react';
+import { StyleSheet } from 'react-native';
 import { useApp } from '../context/AppContext';
 import PropTypes from 'prop-types';
 
