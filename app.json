@@ -15,7 +15,10 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "bundleIdentifier": "com.clearsky.emotionsoup"
+      "bundleIdentifier": "com.clearsky.emotionsoup",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "package": "com.clearsky.emotionsoup"
