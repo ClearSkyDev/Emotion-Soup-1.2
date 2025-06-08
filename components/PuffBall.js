@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { Animated, TouchableWithoutFeedback, Text, StyleSheet } from 'react-native';
+import { Animated, StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 
 function getFace(emotion) {
