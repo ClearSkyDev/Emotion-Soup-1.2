@@ -3,22 +3,19 @@
     "name": "Emotion Soup",
     "slug": "emotion-soup",
     "version": "1.0.0",
+    "sdkVersion": "50.0.0",
+    "platforms": ["ios", "android"],
     "icon": "./icon.png",
-    "extra": {
-      "eas": {
-        "projectId": "95049900-4a97-4166-b77b-4b3f999aae4a"
-      }
+    "splash": {
+      "image": "./icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
     },
     "ios": {
-      "bundleIdentifier": "com.clearsky.emotionsoupv2",
-      "buildNumber": "3",
-      "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false
-      }
+      "bundleIdentifier": "com.clearsky.emotionsoup"
     },
     "android": {
-      "package": "com.clearsky.emotionsoupv2",
-      "versionCode": 3
+      "package": "com.clearsky.emotionsoup"
     }
   }
 }
