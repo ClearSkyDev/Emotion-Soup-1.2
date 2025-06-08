@@ -6,6 +6,7 @@ import EmotionDetailScreen from './screens/EmotionDetailScreen';
 import SoupScreen from './screens/SoupScreen';
 import SettingsScreen from './screens/SettingsScreen';
 import ParentDashboardScreen from './screens/ParentDashboardScreen';
+import { auth } from './firebase';
 import SubscribeScreen from './screens/SubscribeScreen';
 import CopingToolsScreen from './screens/CopingToolsScreen';
 
@@ -20,7 +21,17 @@ export default function Navigation() {
       <Stack.Screen name="Soup" component={SoupScreen} options={{ title: 'Your Soup' }} />
       <Stack.Screen name="Settings" component={SettingsScreen} options={{ title: 'Settings' }} />
       <Stack.Screen name="Subscribe" component={SubscribeScreen} options={{ title: 'Subscribe' }} />
-      <Stack.Screen name="ParentDashboard" component={ParentDashboardScreen} options={{ title: 'Parent Dashboard' }} />
+      <Stack.Screen
+        name="ParentDashboard"
+        options={{ title: 'Parent Dashboard' }}
+      >
+        {(props) => (
+          <ParentDashboardScreen
+            {...props}
+            userId={auth.currentUser?.uid}
+          />
+        )}
+      </Stack.Screen>
       <Stack.Screen name="CopingTools" component={CopingToolsScreen} options={{ title: 'Coping Tools' }} />
     </Stack.Navigator>
   );
