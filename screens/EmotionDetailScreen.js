@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, View, Text, Button } from 'react-native';
 import Slider from '@react-native-community/slider';
 import { useApp } from '../context/AppContext';
+import PropTypes from 'prop-types';
 
 export default function EmotionDetailScreen({ route, navigation }) {
   const { emotion } = route.params;
@@ -26,6 +27,20 @@ export default function EmotionDetailScreen({ route, navigation }) {
     </View>
   );
 }
+
+EmotionDetailScreen.propTypes = {
+  route: PropTypes.shape({
+    params: PropTypes.shape({
+      emotion: PropTypes.shape({
+        id: PropTypes.string,
+        color: PropTypes.string,
+      }),
+    }),
+  }).isRequired,
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 const styles = StyleSheet.create({
   container: { flex: 1, alignItems: 'center', justifyContent: 'center' },

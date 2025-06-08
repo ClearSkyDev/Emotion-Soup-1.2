@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import PuffBall from '../components/PuffBall';
 import { useApp } from '../context/AppContext';
+import PropTypes from 'prop-types';
 
 const EMOTIONS = [
   { id: 'anger', color: '#f87171' },
@@ -37,6 +38,12 @@ export default function HomeScreen({ navigation }) {
     </View>
   );
 }
+
+HomeScreen.propTypes = {
+  navigation: PropTypes.shape({
+    navigate: PropTypes.func.isRequired,
+  }).isRequired,
+};
 
 const styles = StyleSheet.create({
   container: { flex: 1, alignItems: 'center', paddingTop: 40 },
