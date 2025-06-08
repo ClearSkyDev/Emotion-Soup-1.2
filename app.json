@@ -4,7 +4,10 @@
     "slug": "emotion-soup",
     "version": "1.0.0",
     "sdkVersion": "50.0.0",
-    "platforms": ["ios", "android"],
+    "platforms": [
+      "ios",
+      "android"
+    ],
     "icon": "./icon.png",
     "splash": {
       "image": "./icon.png",
@@ -16,6 +19,12 @@
     },
     "android": {
       "package": "com.clearsky.emotionsoup"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "8205f2ca-b42c-41d0-985d-d96f4b741a73"
+      }
+    },
+    "owner": "clearsky"
   }
 }
