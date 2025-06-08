@@ -19,6 +19,25 @@ This project is a React Native application built with Expo. It helps children ex
    npx expo start
    ```
 
+### Creating a native iOS project
+
+If you need to run the app directly in Xcode or create a signed build, first
+generate the native project files:
+
+```bash
+npx expo prebuild
+```
+
+This command creates `ios/` and `android/` directories (both are ignored by
+Git). After running it, install CocoaPods:
+
+```bash
+cd ios && pod install
+```
+
+Open `ios/Emotion Soup.xcworkspace` in Xcode to build and run the app on a
+simulator or device.
+
 ## Project Structure
 
 - `components/` reusable UI components
