@@ -17,6 +17,18 @@ export default function ParentDashboardScreen({ navigation, userId }) {
   const [trendData, setTrendData] = useState({ labels: [], data: [] });
   const [alerts, setAlerts] = useState([]);
 
+  if (!userId) {
+    return (
+      <View style={styles.container}>
+        <Appbar.Header>
+          <Appbar.BackAction onPress={() => navigation.goBack()} />
+          <Appbar.Content title="Parent Dashboard" />
+        </Appbar.Header>
+        <Text style={{ margin: 16 }}>No user selected.</Text>
+      </View>
+    );
+  }
+
   useEffect(() => {
     const uid = userId;
     if (!uid) return;

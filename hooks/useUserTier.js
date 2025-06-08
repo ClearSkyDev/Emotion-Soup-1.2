@@ -8,7 +8,10 @@ export default function useUserTier() {
 
   useEffect(() => {
     const uid = auth.currentUser?.uid;
-    if (!uid) return;
+    if (!uid) {
+      setLoading(false);
+      return;
+    }
 
     const fetchTier = async () => {
       const docRef = doc(db, 'users', uid);
