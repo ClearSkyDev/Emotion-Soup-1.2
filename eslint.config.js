@@ -2,12 +2,22 @@
 import js from '@eslint/js';
 import reactPlugin from 'eslint-plugin-react';
 import globals from 'globals';
+import babelParser from '@babel/eslint-parser';
 
 export default [
   {
+    files: ['**/*.js'],
     languageOptions: {
-      ecmaVersion: 2022,
-      sourceType: 'module',
+      parser: babelParser,
+      parserOptions: {
+        requireConfigFile: false,
+        babelOptions: {
+          presets: ['@babel/preset-react'],
+        },
+        ecmaVersion: 2022,
+        sourceType: 'module',
+        ecmaFeatures: { jsx: true },
+      },
       globals: {
         ...globals.browser,
         ...globals.node,

@@ -14,7 +14,7 @@ export function getToneByAge(age) {
   }
 }
 
-export function suggestActivities(emotion) {
+export function suggestActivities() {
   // Placeholder suggestions based on emotion
   return ['deep breath', 'draw', 'talk', 'move'];
 }
