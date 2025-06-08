@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, FlatList } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { useApp } from '../context/AppContext';
 
 export default function SoupScreen() {
