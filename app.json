@@ -4,7 +4,6 @@
     "slug": "emotion-soup",
     "version": "1.0.0",
     "icon": "./icon.png",
-    "plugins": ["@react-native-community/slider"],
     "extra": {
       "eas": {
         "projectId": "95049900-4a97-4166-b77b-4b3f999aae4a"
