@@ -1,21 +1,21 @@
-// ESLint configuration for ESLint v9+
+// ESLint flat config for v9+
 import js from '@eslint/js';
-import react from 'eslint-plugin-react';
+import reactPlugin from 'eslint-plugin-react';
+import globals from 'globals';
 
 export default [
-  js.config({
-    env: {
-      browser: true,
-      es2021: true,
-    },
-    parserOptions: {
-      ecmaFeatures: { jsx: true },
-      ecmaVersion: 12,
-      sourceType: 'module',
-    },
-  }),
   {
-    plugins: { react },
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: 'module',
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
+    },
+    plugins: {
+      react: reactPlugin,
+    },
     rules: {
       'react/prop-types': 'warn',
       'no-unused-vars': 'warn',
@@ -28,4 +28,5 @@ export default [
       },
     },
   },
+  js.configs.recommended,
 ];
