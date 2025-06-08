@@ -2,5 +2,6 @@ node_modules/
 .env
 .expo
 .DS_Store
-ios/
+ios/*
+!ios/Podfile
 android/
