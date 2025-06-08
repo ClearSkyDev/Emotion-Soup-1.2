@@ -1,0 +1,1 @@
+This folder previously contained duplicate or backup config files (app.duplicate.json.bak, package.duplicate.json.bak, eslint.config.js, tsconfig.json, README.md) which have been removed to prevent Metro/Expo conflicts. If you need to restore any, retrieve them from version control or your backup.
