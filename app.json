@@ -1,0 +1,24 @@
+{
+  "expo": {
+    "name": "Emotion Soup",
+    "slug": "emotion-soup",
+    "version": "1.0.0",
+    "icon": "./icon.png",
+    "extra": {
+      "eas": {
+        "projectId": "95049900-4a97-4166-b77b-4b3f999aae4a"
+      }
+    },
+    "ios": {
+      "bundleIdentifier": "com.clearsky.emotionsoupv2",
+      "buildNumber": "2",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
+    },
+    "android": {
+      "package": "com.clearsky.emotionsoupv2",
+      "versionCode": 2
+    }
+  }
+}
