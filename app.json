@@ -1,0 +1,12 @@
+{
+  "expo": {
+    "name": "Emotion Soup",
+    "slug": "emotion-soup",
+    "version": "1.2.0",
+    "sdkVersion": "49.0.0",
+    "platforms": ["ios", "android"],
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light"
+  }
+}
