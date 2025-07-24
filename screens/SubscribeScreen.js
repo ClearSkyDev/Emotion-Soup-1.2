@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet, Alert } from 'react-native';
 import { auth, db } from '../firebase';
 import { doc, setDoc } from 'firebase/firestore';
 
@@ -8,13 +8,24 @@ export default function SubscribeScreen() {
 
   const upgrade = async () => {
     const uid = auth.currentUser?.uid;
-    if (!uid) return;
-    await setDoc(
-      doc(db, 'users', uid),
-      { subscriptionTier: 'premium' },
-      { merge: true }
-    );
-    setThanks(true);
+    if (!uid) {
+      Alert.alert('Not Signed In', 'Please log in or create an account to upgrade.');
+      return;
+    }
+    try {
+      await setDoc(
+        doc(db, 'users', uid),
+        { subscriptionTier: 'premium' },
+        { merge: true }
+      );
+      setThanks(true);
+    } catch (err) {
+      console.error('Upgrade failed:', err);
+      Alert.alert(
+        'Upgrade Failed',
+        'Could not upgrade at this time. Please check your connection and try again.'
+      );
+    }
   };
 
   return (
