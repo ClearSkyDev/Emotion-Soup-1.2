@@ -10,14 +10,16 @@ This project is a React Native application built with Expo. It helps children ex
 ## Getting Started
 
 1. Install dependencies:
-   ```bash
-   npm install
-   ```
+ ```bash
+  npm install
+  ```
    This will install required packages including `@react-native-community/slider` used on the Emotion Detail screen.
 2. Run the app in Expo:
-   ```bash
-   npx expo start
-   ```
+  ```bash
+  npx expo start
+  ```
+3. Copy `.env.example` to `.env` and fill in your Firebase keys. Expo will inline
+   these variables at build time so the app can connect to Firebase.
 
 ### Creating a native iOS project
 
@@ -44,7 +46,7 @@ simulator or device.
 - `screens/` app screens
 - `context/` React Context for global state
 - `utils/` helper logic such as the AI personality placeholder
-- `firebase.js` Firebase initialization (configure with your own keys)
+- `firebase.js` Firebase initialization (reads keys from environment variables)
 
 This skeleton includes basic navigation and placeholder screens for future development.
 
