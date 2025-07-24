@@ -14,13 +14,21 @@ export default function useUserTier() {
     }
 
     const fetchTier = async () => {
-      const docRef = doc(db, 'users', uid);
-      const docSnap = await getDoc(docRef);
-      if (docSnap.exists()) {
-        const data = docSnap.data();
-        setTier(data.subscriptionTier || data.tier || 'free');
+      try {
+        const docRef = doc(db, 'users', uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          setTier(data.subscriptionTier || data.tier || 'free');
+        } else {
+          setTier('free');
+        }
+      } catch (err) {
+        console.error('Failed to fetch user tier:', err);
+        setTier('free');
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     };
 
     fetchTier();
