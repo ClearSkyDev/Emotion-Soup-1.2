@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Button, ActivityIndicator } from 'react-native';
-import * as Speech from 'expo-speech';
+import { useTTS } from '../context/TTSContext';
 import EmotionPuffBall from '../components/EmotionPuffBall';
 import EmotionSliders from '../components/EmotionSliders';
 import { useApp } from '../context/AppContext';
@@ -16,8 +16,10 @@ export default function EmotionDetailScreen({ route, navigation }) {
   const [helpRequested, setHelpRequested] = useState(false);
   const { tier, loading } = useUserTier();
 
+  const { speak } = useTTS();
+
   const speakPrompt = () => {
-    Speech.speak(`You chose ${emotion.id}. What does it feel like in your body?`);
+    speak(`You chose ${emotion.id}. What does it feel like in your body?`);
   };
 
   const addToSoup = async () => {
