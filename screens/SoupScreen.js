@@ -8,7 +8,9 @@ import {
   Button,
   ActivityIndicator,
 } from 'react-native';
-import * as Speech from 'expo-speech';
+import { Pressable } from 'react-native';
+import { useTTS } from '../context/TTSContext';
+import Volume2 from 'lucide-react-native/dist/esm/icons/volume-2';
 import { useApp } from '../context/AppContext';
 import PuffBall from '../components/PuffBall';
 import saveSoup from '../hooks/useSoupSaver';
@@ -16,6 +18,7 @@ import { generateSoupBuddyResponse } from '../utils/aiBehavior';
 
 export default function SoupScreen() {
   const { selectedEmotions, age } = useApp();
+  const { speak } = useTTS();
   const [name, setName] = useState('');
   const [buddyText, setBuddyText] = useState('');
   const [loading, setLoading] = useState(false);
@@ -25,7 +28,7 @@ export default function SoupScreen() {
     try {
       const text = generateSoupBuddyResponse(selectedEmotions, age || '8-12');
       setBuddyText(text);
-      Speech.speak(text);
+      speak(text);
     } catch (err) {
       setBuddyText("I'm not sure what to say, but let's take a deep breath together.");
     } finally {
@@ -62,6 +65,9 @@ export default function SoupScreen() {
       {buddyText !== '' && (
         <View style={styles.bubble}>
           <Text style={styles.bubbleText}>{buddyText}</Text>
+          <Pressable onPress={() => speak(buddyText)} style={styles.icon}>
+            <Volume2 size={24} color="#555" />
+          </Pressable>
         </View>
       )}
       <Button title="Save Soup" onPress={handleSave} />
@@ -90,5 +96,10 @@ const styles = StyleSheet.create({
   },
   bubbleText: {
     fontSize: 16,
+  },
+  icon: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
   },
 });
