@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator, Pressable } from 'react-native';
+import { useTTS } from '../context/TTSContext';
+import Volume2 from 'lucide-react-native/dist/esm/icons/volume-2';
 
 /**
  * EmotionStoryBox displays a short story generated about the given emotion.
@@ -10,6 +12,7 @@ import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 export default function EmotionStoryBox({ emotion, size, temp }) {
   const [story, setStory] = useState('');
   const [loading, setLoading] = useState(true);
+  const { speak } = useTTS();
 
   useEffect(() => {
     // In a real app this would call an API like OpenAI. We simulate the delay.
@@ -26,6 +29,11 @@ export default function EmotionStoryBox({ emotion, size, temp }) {
   return (
     <View style={styles.box}>
       <Text style={styles.title}>Story about {emotion}</Text>
+      {!loading && (
+        <Pressable onPress={() => speak(story)} style={styles.icon}>
+          <Volume2 size={24} color="#f97316" />
+        </Pressable>
+      )}
       {loading ? (
         <ActivityIndicator size="small" color="#666" />
       ) : (
@@ -77,5 +85,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 22,
     color: '#333',
+  },
+  icon: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
   },
 });
