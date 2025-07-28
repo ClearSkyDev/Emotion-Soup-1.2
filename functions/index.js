@@ -1,3 +1,4 @@
+const { db, auth } = require('../firebase');
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp();
