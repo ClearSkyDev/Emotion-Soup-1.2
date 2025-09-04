@@ -83,3 +83,21 @@ The returned array can be easily adapted for a line chart with the date on the x
 ## Coping Tools
 
 The `CopingToolsScreen` offers simple breathing, drawing and journaling activities. Each time a child uses one of these tools a log entry is saved to Firestore under `users/{uid}/copingLogs`.
+
+### Beta Prep (local)
+
+**macOS (bash/zsh):**
+```bash
+chmod +x scripts/beta_prep_flutter.sh
+APP_VERSION=0.9.0-beta1 BUILD_NUMBER=10001 scripts/beta_prep_flutter.sh
+```
+
+**Windows (PowerShell):**
+```powershell
+Set-ExecutionPolicy -Scope Process Bypass
+$env:APP_VERSION="0.9.0-beta1"; $env:BUILD_NUMBER="10001"; ./scripts/beta_prep_flutter.ps1
+```
+
+Artifacts:
+- Android AAB: `build/app/outputs/bundle/release/*.aab`
+- iOS IPA: `build/ios/ipa/*.ipa`
