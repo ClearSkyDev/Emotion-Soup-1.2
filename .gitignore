@@ -7,3 +7,5 @@ ios/*
 !ios/Runner/
 !ios/Runner/Info.plist
 !ios/Runner/AppDelegate.swift
+
+build/
