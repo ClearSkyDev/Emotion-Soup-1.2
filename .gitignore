@@ -4,3 +4,6 @@ node_modules/
 .DS_Store
 ios/*
 !ios/Podfile
+!ios/Runner/
+!ios/Runner/Info.plist
+!ios/Runner/AppDelegate.swift
